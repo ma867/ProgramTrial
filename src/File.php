@@ -8,6 +8,7 @@
  *
  */
 include "CsvFunctions.php";
+include "ArrayFunctions.php";
 class File
 {
 
@@ -50,8 +51,8 @@ class File
     public static function printArrayAsTable(Array $albums): string
     {
         $row ="<table class=\"table\"><thead class=\"thead-dark\" style=\"font-family: \'Poppins\', sans-serif;\"><tr>";
-        $fieldnames = self::printArrayKeys($albums);
-        $values = self::printArrayValues($albums);
+        $fieldnames = ArrayFunctions::printArrayKeys($albums);
+        $values = ArrayFunctions::printArrayValues($albums);
         foreach ($fieldnames as $fieldname)
         {
             $row .= "<th>" . $fieldname . "</th>";
