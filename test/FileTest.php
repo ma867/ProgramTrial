@@ -29,17 +29,9 @@ final class FileTest extends TestCase
     }
     public function testReadCSVtoArray()
     {
-        $albums = File::readCSVtoArray("data/data.csv", 'Album');
-        print_r($albums);
-
+        print_r (File::readCSVtoArray("data/data.csv", 'Album'));
     }
-    public function testPrintArrayKeysExists()
-    {
-        $this->assertTrue(
-            method_exists(File::class, 'printArrayKeys')
-        );
 
-    }
     public function testPrintArrayAsTableExists()
     {
         $this->assertTrue(
@@ -51,45 +43,8 @@ final class FileTest extends TestCase
     public function testPrintArrayAsTable()
     {
         $albums = File::readCSVtoArray("data/data.csv", 'Album');
-        $table = File::printArrayAsTable($albums);
-        echo $table;
+        echo File::printArrayAsTable($albums);
     }
 
-    public function testArrayPrintsKeys()
-    {
-        $albums = File::readCSVtoArray("data/data.csv", 'Album');
-        $fieldNames = File::printArrayKeys($albums);
-        print_r($fieldNames);
-    }
-
-    public function testPrintArrayValuesExists()
-    {
-        $this->assertTrue(
-            method_exists(File::class, 'printArrayValues')
-        );
-
-    }
-
-    public function testPrintArrayValues()
-    {
-        $albums = File::readCSVtoArray("data/data.csv", 'Album');
-        $table = File::printArrayValues($albums);
-        print_r($table);
-    }
-    /*
-       public function testPrintArrayRowExists()
-       {
-           $this->assertTrue(
-               method_exists(File::class, 'printArrayRow')
-           );
-       }
-
-       public function testPrintArrayRow()
-       {
-           $albums = File::readCSVtoArray("data/data.csv", 'Album');
-           $table = File::printArrayRow($albums);
-           print_r($table);
-       }
-    */
 }
 

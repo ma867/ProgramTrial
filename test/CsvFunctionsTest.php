@@ -5,7 +5,6 @@
  * Date: 3/12/2019
  * Time: 10:09 PM
  */
-
 declare(strict_types=1);
 
 use PHPUnit\Framework\TestCase;

@@ -12,18 +12,22 @@ class ArrayFunctions
     {
         return array_combine($key, $val);
     }
-    public static function printArrayKeys(Array $albums): array
+    public static function printArrayKeys(Array $albums)
     {
         return array_keys(get_object_vars($albums[0]));
 
     }
-    public static function printArrayValues(Array $albums): array
+    public static function printArrayValues(Array $albums)
     {
-        $values = array();
+        $values = self::makeArray();
         for($i=0; $i <= (sizeof($albums)-1); $i++ )
         {
             $values[] = get_object_vars($albums[$i]);
         }
         return $values;
+    }
+    public static function makeArray()
+    {
+        return  Array();
     }
 }

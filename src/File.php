@@ -7,14 +7,17 @@
  *
  *
  */
-include "CsvFunctions.php";
-include "ArrayFunctions.php";
+include_once "CsvFunctions.php";
+include_once "ArrayFunctions.php";
+include_once "RecordFactory.php";
+include_once "Records.php";
+include_once "HtmlTags.php";
 class File
 {
 
     public static function readCSVtoArray(String $filename, String $class): array
     {
-        $albums = Array();
+        $albums = ArrayFunctions::makeArray();
         $count = 0;
         $fieldNames = '';
         if (($handle = CsvFunctions::openCSVFile($filename)) !== FALSE) {
@@ -22,7 +25,7 @@ class File
                 if ($count == 0) {
                     $fieldNames = $row;
                 } else {
-                    $albums[] = (object)array_combine($fieldNames, $row);
+                   $albums[] =(object)RecordFactory::buildArray($fieldNames, $row);
                 }
                 $count++;
             }
@@ -32,42 +35,26 @@ class File
         return $albums;
     }
 
-    public static function printArrayKeys(Array $albums): array
-    {
-        $fieldNames = array_keys(get_object_vars($albums[0]));
-        return $fieldNames;
-    }
-
-    public static function printArrayValues(Array $albums): array
-    {
-        $values = array();
-        for($i=0; $i <= (sizeof($albums)-1); $i++ )
-        {
-            $values[] = get_object_vars($albums[$i]);
-        }
-        return $values;
-    }
-
     public static function printArrayAsTable(Array $albums): string
     {
-        $row ="<table class=\"table\"><thead class=\"thead-dark\" style=\"font-family: \'Poppins\', sans-serif;\"><tr>";
+        $row = (HtmlTags::BeginOfHtml());
         $fieldnames = ArrayFunctions::printArrayKeys($albums);
         $values = ArrayFunctions::printArrayValues($albums);
         foreach ($fieldnames as $fieldname)
         {
-            $row .= "<th>" . $fieldname . "</th>";
+            $row .= HtmlTags::HeaderCellTags($fieldname);
         }
-        $row .= "</tr></thead><tbody style=\"font-family: 'Poppins', sans-serif;\">";
+        $row .= (HtmlTags::MidOfHtml());
         foreach ($values as $value)
         {
-            $row .= "<tr>";
+            $row .= HtmlTags::BeginOfRow();
             foreach ($fieldnames as $fieldname) {
 
                 $row .= "<td>" . $value[$fieldname] . "</td>";
             }
-            $row .= "</tr>";
+            $row .= HtmlTags::EndOfRow();
         }
-        $row .= "</tbody></table>";
+        $row .= (HtmlTags::EndOfHtml());
         return $row;
     }
 
